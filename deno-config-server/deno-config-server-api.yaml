@@ -1,0 +1,44 @@
+openapi: "3.0.0"
+info:
+  title: Deno microservices config server api 
+  version: 1.0.0
+paths: 
+  /configurationItem:
+    get:
+      summary: Get content of a configuration item
+      parameters:
+        - name: name
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A configuration item content
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/configurationItem"
+              examples: 
+                valid:
+                  value:
+                        {
+                            "name": "configuration_item_name",
+                            "updated": "2013-07-23T11:33:21Z",
+                            "value": "configuration-item-value",
+                        }
+components:
+  schemas:
+    configurationItem:
+      type: object
+      required:
+        - name
+        - updated
+        - value
+      properties:
+        name:
+          type: string
+        updated:
+            type: string
+            format: date-time
+        value:
+          type: string
