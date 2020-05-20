@@ -11,5 +11,14 @@
         "runtimeArgs": ["run", "--inspect-brk", "-A", "deno-config-server/main-controller.ts"],
         "port": 9229
       },
+      {
+        "name": "deno-config-server test url",
+        "type": "node",
+        "request": "launch",
+        "cwd": "${workspaceFolder}",
+        "runtimeExecutable": "deno",
+        "runtimeArgs": ["test", "--inspect-brk", "-A", "deno-config-server/service/configuration-service-url-test.ts"],
+        "port": 9229
+      },
     ]
   }

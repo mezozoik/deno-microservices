@@ -10,7 +10,7 @@ enum ConfigStor {
 
 let config = {
     store: ConfigStor.URL,
-    url : "https://github.com/mezozoik/deno-microservices/tree/master/deno-config-server/test/test-configuration.json"
+    url : "https://raw.githubusercontent.com/mezozoik/deno-microservices/master/deno-config-server/test/test-configuration.json"
 }
 
 console.log("Config loaded: %o", config);
@@ -21,7 +21,7 @@ export function createConfigurationService() {
             return gitresolve;
             break;
         case ConfigStor.URL:
-            return urlresolve;
+            return urlresolve.bind(null, config.url);
         default:
             throw new Error("error");
             break;
