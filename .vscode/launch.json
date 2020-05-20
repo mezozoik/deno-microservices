@@ -1,0 +1,15 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+
+      {
+        "name": "deno-config-server-main",
+        "type": "node",
+        "request": "launch",
+        "cwd": "${workspaceFolder}",
+        "runtimeExecutable": "deno",
+        "runtimeArgs": ["run", "--inspect-brk", "-A", "deno-config-server/main-controller.ts"],
+        "port": 9229
+      },
+    ]
+  }

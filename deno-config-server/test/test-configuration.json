@@ -1,0 +1,10 @@
+[
+    {
+        "name": "first_test_config_param",
+        "value": { "a" : 1 }
+    },
+    {
+        "name": "second_test_config_param",
+        "value": { "b" : 2 }
+    }
+]
