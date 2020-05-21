@@ -30,4 +30,4 @@ jobs:
     
     # Test deno
     - name: Test deno
-      run: deno test ./deno-config-server/**/*-test.ts
+      run: deno test --allow-net ./**/*-test.ts
