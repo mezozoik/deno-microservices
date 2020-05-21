@@ -6,10 +6,12 @@
 
 ## Run
 
-Run **deno-config-server** on default port 8080:
-
 ```shell
+# with default port 8080
 deno run --allow-net ./deno-config-server-main-controller.ts
+
+# with defined port
+deno run --allow-net ./deno-config-server-main-controller.ts -port=8081
 ```
 
 ## Test

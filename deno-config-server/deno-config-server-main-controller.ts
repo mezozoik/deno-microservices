@@ -1,17 +1,19 @@
 import { Application, Router, Context } from "./deps.ts";
 import  * as ioc from "./config.ts";
+import { getPort } from "./utils.ts";
+
 
 const app = new Application();
 
 const router = new Router();
-const routerMiddlewares = [
+const routerMiddlewareList = [
   {
     contextPath: "/configurationItem",
     middleware: ioc.createConfigurationItemMiddleware()
   }
 ];
 
-routerMiddlewares.forEach((e) => {
+routerMiddlewareList.forEach((e) => {
   router.get(e.contextPath, async (c: Context) => {
     c.response.body = await e.middleware(c.request);
   });
@@ -19,4 +21,6 @@ routerMiddlewares.forEach((e) => {
 
 app.use(router.routes()).use(router.allowedMethods());
 
-await app.listen({ port: 8080 });
+let port = getPort(Deno.args);
+console.log("Deno config server running on port: %s", port);
+await app.listen({ port: port });
