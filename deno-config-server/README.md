@@ -14,7 +14,7 @@ deno run --allow-net ./deno-config-server-main-controller.ts
 deno run --allow-net ./deno-config-server-main-controller.ts -port=8081
 ```
 
-## Test
+## Try
 
 Retrieve configuration item (like in a client application):
 
