@@ -23,7 +23,7 @@ paths:
                   value:
                         {
                             "name": "configuration_item_name",
-                            "updated": "2013-07-23T11:33:21Z",
+                            "last_updated": "2013-07-23T11:33:21Z",
                             "value": "configuration-item-value",
                         }
 components:
@@ -37,7 +37,7 @@ components:
       properties:
         name:
           type: string
-        updated:
+        last_updated:
             type: string
             format: date-time
         value:

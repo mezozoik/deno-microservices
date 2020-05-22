@@ -1,8 +1,8 @@
 
 # External configuration server
 
-- REST API
-- configuration stores (git, sql, nosql, file, ...)
+- REST API - see: [deno-config-server-api.yaml](deno-config-server-api.yaml)
+- configuration stores (sql, url, ...)
 
 ## Run
 
