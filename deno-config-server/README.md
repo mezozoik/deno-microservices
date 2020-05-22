@@ -22,7 +22,6 @@ Single:
 wget -qO- http://localhost:8080/configurationItem?name=first
 ```
 
-
 ```json
 [
     {
@@ -31,6 +30,7 @@ wget -qO- http://localhost:8080/configurationItem?name=first
     }
 ]
 ```
+
 Multiple:
 
 ```shell

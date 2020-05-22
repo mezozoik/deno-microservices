@@ -17,13 +17,12 @@ Deno.test("load configuration file - invalid url", async () => {
     }
 });
 
-
 Deno.test("parse right test configuration file", async () => {
     const items = await getConfigurationItems("https://raw.githubusercontent.com/mezozoik/deno-microservices/master/deno-config-server/test/test-configuration.json", ["first"]);
     assertEquals(items.length, 1);
 });
 
-Deno.test("parse right test configuration file", async () => {
+Deno.test("multiple config items", async () => {
     const items = await getConfigurationItems("https://raw.githubusercontent.com/mezozoik/deno-microservices/master/deno-config-server/test/test-configuration.json", 
     ["first", "second"]);
     assertEquals(items.length, 2);
