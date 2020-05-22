@@ -5,6 +5,7 @@ Deno.test("test getPort", () => {
   assertEquals(getPort([]), 8080);
   assertEquals(getPort(["test"]), 8080);
   assertEquals(getPort(["-port"]), 8080);
+  assertEquals(getPort(["-port=SSS"]), Number.NaN);
 
   assertEquals(getPort(["-port=8081"]), 8081);
   assertEquals(getPort(["-port1", "-port = 8081"]), 8081);

@@ -16,14 +16,18 @@ export async function resolve(
           throw new Error("Invalid URL");
         }
       
-        const content = await fetch(url);
-        let items : ConfigurationItem[] = await content.json();
-        console.log(items);
+        try {
+          const content = await fetch(url);
+          let items : ConfigurationItem[] = await content.json();
+          console.log(items);
 
-        let found = items.find(e => {return e.name == name});
-        console.log("found: %o", found)
+          let found = items.find(e => {return e.name == name});
+          console.log("found: %o", found)
 
-        resolve(found);
+          resolve(found);
+        } catch (e) {
+          reject(e);
+        }
       });
 }
 
