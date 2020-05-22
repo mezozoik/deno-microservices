@@ -1,5 +1,5 @@
-import { resolve as gitresolve} from "./service/configuration-service-git.ts";
-import { resolve as urlresolve} from "./service/configuration-service-url.ts";
+import { resolve as gitResolve} from "./service/configuration-service-git.ts";
+import { getConfigurationItems as urlResolve} from "./service/configuration-service-url.ts";
 import { handleConfigurationItemRequest } from "./middleware/resolve-item-middleware.ts";
 
 enum ConfigStor {
@@ -18,10 +18,10 @@ console.log("Config loaded: %o", config);
 export function createConfigurationService() {
     switch (config.store) {
         case ConfigStor.GIT:
-            return gitresolve;
+            return gitResolve;
             break;
         case ConfigStor.URL:
-            return urlresolve.bind(null, config.url);
+            return urlResolve.bind(null, config.url);
         default:
             throw new Error("error");
             break;

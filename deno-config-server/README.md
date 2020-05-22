@@ -16,16 +16,38 @@ deno run --allow-net ./deno-config-server-main-controller.ts -port=8081
 
 ## Try
 
-Retrieve configuration item (like in a client application):
+Single:
 
 ```shell
-wget -qO- http://localhost:8080/configurationItem?name=first_test_config_param
+wget -qO- http://localhost:8080/configurationItem?name=first
 ```
 
-Output
 
 ```json
-{"name":"first_test_config_param","value":{"a":1}}
+[
+    {
+        "name":"first",
+        "value":{"a":1}
+    }
+]
+```
+Multiple:
+
+```shell
+wget -qO- http://localhost:8080/configurationItem?name=first,second
+```
+
+```json
+[
+    {
+        "name":"first",
+        "value":{"a":1}
+    },
+    {
+        "name":"second",
+        "value":{"b":2}
+    }
+]
 ```
 
 ## Config

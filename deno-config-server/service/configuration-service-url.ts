@@ -1,11 +1,11 @@
 import { ConfigurationItem } from "./configuration-service.ts";
 
-export async function resolve(
+export async function getConfigurationItems(
   url: string,
-  name: String
-): Promise<ConfigurationItem> {
-    return new Promise<ConfigurationItem>(async (resolve, reject) => {
-        console.log("Looking for configuration item: %s", name);
+  names: string[]
+): Promise<ConfigurationItem[]> {
+    return new Promise<ConfigurationItem[]>(async (resolve, reject) => {
+        console.log("Looking for configuration item: %s", names);
         console.log("Fetching configuration file from URL: %s", url);
         if (
           url.match(
@@ -25,7 +25,7 @@ export async function resolve(
           return;
         }
 
-        const found = items?.find(e => {return e.name == name});
+        const found = items?.filter(stored => names.find(e => e === stored.name));
         console.log("found: %o", found)
         resolve(found);
       });
