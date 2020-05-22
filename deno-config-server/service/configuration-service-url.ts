@@ -13,7 +13,7 @@ export async function resolve(
           ) === null
         ) {
           console.error("Invalid URL: %s", url);
-          throw new Error("Invalid URL");
+          reject (new Error("Invalid URL"));
         }
       
         try {

@@ -9,6 +9,15 @@ Deno.test("google.com is not valid json/deno-configuration-file", async () => {
     }
 });
 
+Deno.test("load configuration file - invalid url", async () => {
+    try {
+        await resolve("invalid_url", "test");
+    } catch (e) {
+        console.log(e);
+    }
+});
+
+
 Deno.test("parse right test configuration file", async () => {
     await resolve("https://raw.githubusercontent.com/mezozoik/deno-microservices/master/deno-config-server/test/test-configuration.json", "first_test_config_param");
 });
