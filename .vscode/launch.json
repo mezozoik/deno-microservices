@@ -21,12 +21,12 @@
         "port": 9229
       },
       {
-        "name": "deno-config-server test mysql",
+        "name": "test",
         "type": "node",
         "request": "launch",
         "cwd": "${workspaceFolder}",
         "runtimeExecutable": "deno",
-        "runtimeArgs": ["test", "--inspect-brk", "-A", "deno-config-server/service/configuration-service-mysql_test.ts"],
+        "runtimeArgs": ["test", "--inspect-brk", "-A", "deno-config-server/cache_test.ts"],
         "port": 9229
       },
     ]
