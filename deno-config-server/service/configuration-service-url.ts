@@ -6,7 +6,7 @@ export async function getConfigurationItems(url: string, cache : Cache, names: s
         console.log("Looking for configuration item: %s", names);
         console.log("Fetching configuration file from URL: %s", url);
 
-        const cached = cache.match([url, names]);
+        const cached = await cache.match([url, names]);
         if (cached !== undefined) {
           resolve(cached);
           return;

@@ -1,3 +1,5 @@
+import { Sha1 } from "https://deno.land/std/hash/sha1.ts";
+
 export class Cache {
 
     private valueMap = new Map();
@@ -6,12 +8,15 @@ export class Cache {
     constructor(private size : number = 100) { }
 
     public async match (key : any) : Promise<any> {
+
         return new Promise<any> ((resolve, reject) => {
-            console.log("checking cache for key: %o", key);
-            if (this.valueMap.has(key)) {
-                const value = this.valueMap.get(key);
-                this.usingMap.set(key, (this.usingMap.get(key) ?? 0) + 1);
-                console.log("cache hit for key: %o, with value: %o", key, value)
+            let stringKey = new Sha1().update(key.toString()).toString();
+
+            console.log("checking cache for key: %o", stringKey);
+            if (this.valueMap.has(stringKey)) {
+                const value = this.valueMap.get(stringKey);
+                this.usingMap.set(stringKey, (this.usingMap.get(key) ?? 0) + 1);
+                console.log("cache hit for key: %o, with value: %o", stringKey, value)
                 resolve(value);
             }
             resolve(undefined);
@@ -19,6 +24,9 @@ export class Cache {
     }
 
     public put (key : any, value : any) {
+
+        const stringKey = new Sha1().update(key.toString()).toString();
+
         // todo: shrink in batch
         if (this.valueMap.size >= this.size) {
             let minValue : number;
@@ -36,8 +44,8 @@ export class Cache {
             this.valueMap.delete(minKey);
         }
 
-        this.valueMap.set(key, value);
-        this.usingMap.set(key, 0);
+        this.valueMap.set(stringKey, value);
+        this.usingMap.set(stringKey, 0);
     }
 
 }

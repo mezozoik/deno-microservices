@@ -29,6 +29,10 @@ Deno.test("multiple config items", async () => {
     const items = await getConfigurationItems("https://raw.githubusercontent.com/mezozoik/deno-microservices/master/deno-config-server/test/test-configuration.json", 
     cache, ["first", "second"]);
     assertEquals(items.length, 2);
+
+    const items2 = await getConfigurationItems("https://raw.githubusercontent.com/mezozoik/deno-microservices/master/deno-config-server/test/test-configuration.json", 
+    cache, ["first", "second"]);
+    assertEquals(items2.length, 2);
 });
 
 
