@@ -14,6 +14,7 @@ export class Cache {
                 console.log("cache hit for key: %o, with value: %o", key, value)
                 resolve(value);
             }
+            resolve(undefined);
         });
     }
 
