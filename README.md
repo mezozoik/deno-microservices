@@ -4,7 +4,7 @@
 Simple and useful tools for deno microservices:
 
 - Deno + Typescript
-- Based on standard microservices patterns [https://microservices.io/patterns/microservices.html](https://microservices.io/patterns/microservices.html)
+- Based on standard microservices and SOA patterns [https://microservices.io/patterns/microservices.html](https://microservices.io/patterns/microservices.html)
 - Minimum third party dependencies
 - No side effects
 - Pure μ services - no global service manager
@@ -25,7 +25,7 @@ Standalone μ services:
   - Support for GIT and NoSQL in progress
 - deno-service-discovery
   - REST API with open api spec 3.0
-  - service registry - only self registry - no additional manager needed (like zookeeeper or eureka)
+  - service registry - only self registry - no additional manager needed (data distribution made by external tool like zookeeper or some distributed storage)
   - service discovery - server-side (with client load balancer) & server-side
   - service lifecycle management by health check
   - information resource
@@ -45,3 +45,9 @@ Libs:
   - in progress
 - deno-distributed-tracing
   - in progress
+
+# Documentation
+
+Please see [wiki](./wiki) for detailed documentation.
+
+
