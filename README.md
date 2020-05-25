@@ -14,7 +14,7 @@ Simple and useful tools for deno microservices:
 Standalone μ services:
 
 - deno-config-server
-  - REST API with open api spec 3.0
+  - REST API with Open api spec 3.0
   - One runnable file
   - No forced client library - just HTTP API
   - Different config stores: URI based, MySQL, ...
@@ -22,16 +22,19 @@ Standalone μ services:
   - ETag support
   - In-memory cache
   - Minimum third party libs (only oak and mysql - if used)
-  - Support for GIT and NoSQL in progress
+  - Support for GIT, MongoDB, Hazelcast IMDG, etcd, Zookeeper in progress
+  - Fault tolerance data replication based on external storage capabilities
 - deno-service-discovery
-  - REST API with open api spec 3.0
-  - service registry - only self registry - no additional manager needed (data distribution made by external tool like zookeeper or some distributed storage)
-  - service discovery - server-side (with client load balancer) & server-side
-  - service lifecycle management by health check
-  - information resource
+  - REST API with Open api spec 3.0
+  - Service registry - self registry
+  - Running aside of business service
+  - Fault tolerant data replication based on external storage - zookeeper or etcd (consider availability) or distributed storage - MongoDB or Hazelcast IMDG (consider consistency)
+  - service discovery - client-side (client load balancer) as well as server-side (external load balancer)
+  - service lifecycle management
+  - resource for info about services status
 - deno-oauth2-identity
   - REST API with open api spec 3.0
-  - oAuth2 and open ID Connect identity provider
+  - oAuth2 and Open ID Connect identity provider
   - suitable also for machine2machine authentication
   - web login pages (μ frontend)
   - multi-factor authentication
