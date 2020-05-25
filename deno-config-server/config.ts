@@ -26,6 +26,7 @@ const eTagCache = new Cache(100);
 
 console.log("Config loaded: %o", config);
 
+// IOC definitions
 function createGetMysqlConnection() {
     return getMysqlConnection.bind(null, config.mysql);
 }

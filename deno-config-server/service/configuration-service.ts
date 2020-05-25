@@ -1,5 +1,5 @@
 export interface ConfigurationItem {
     name: string,
-    value : object,
+    value: object,
     last_updated?: Date
 }

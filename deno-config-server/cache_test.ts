@@ -19,7 +19,7 @@ Deno.test("cache test size", async () => {
 
 Deno.test("cache test basic", async () => {
     const cache = new Cache();
-    
+
     assertEquals(await cache.match("test"), undefined);
     assertEquals(await cache.match(1), undefined);
 
@@ -27,6 +27,3 @@ Deno.test("cache test basic", async () => {
     assertEquals(await cache.match(1), "test");
     assertEquals(await cache.match(2), undefined);
 });
-
-
-

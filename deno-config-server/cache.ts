@@ -8,19 +8,16 @@ export class Cache {
     constructor(private size : number = 100) { }
 
     public async match (key : any) : Promise<any> {
+        let stringKey = new Sha1().update(key.toString()).toString();
 
-        return new Promise<any> ((resolve, reject) => {
-            let stringKey = new Sha1().update(key.toString()).toString();
-
-            console.log("checking cache for key: %o", stringKey);
-            if (this.valueMap.has(stringKey)) {
-                const value = this.valueMap.get(stringKey);
-                this.usingMap.set(stringKey, (this.usingMap.get(key) ?? 0) + 1);
-                console.log("cache hit for key: %o, with value: %o", stringKey, value)
-                resolve(value);
-            }
-            resolve(undefined);
-        });
+        console.log("checking cache for key: %o", stringKey);
+        if (this.valueMap.has(stringKey)) {
+            const value = this.valueMap.get(stringKey);
+            this.usingMap.set(stringKey, (this.usingMap.get(key) ?? 0) + 1);
+            console.log("cache hit for key: %o, with value: %o", stringKey, value)
+            return value;
+        }
+        return undefined;
     }
 
     public put (key : any, value : any) {

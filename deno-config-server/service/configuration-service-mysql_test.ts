@@ -19,7 +19,7 @@ async function createFakeClientNoData() {
         query: function () {
             return [];
         },
-        close: function () {}
+        close: function () { }
     };
 }
 
@@ -27,9 +27,9 @@ async function createFakeClient() {
     return {
         query: function () {
             return [
-                {name: "first", value : "1"}
+                { name: "first", value: "1" }
             ];
         },
-        close: function () {}
+        close: function () { }
     };
 }
