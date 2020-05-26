@@ -8,14 +8,14 @@ import { Status } from "https://deno.land/std/http/http_status.ts";
 const app = new Application();
 
 const router = new Router();
-const routerMiddlewareList = [
+const routerMiddlewareArray = [
   {
     contextPath: "/configurationItem",
     middleware: ioc.createConfigurationItemMiddleware()
   }
 ];
 
-routerMiddlewareList.forEach((e) => {
+routerMiddlewareArray.forEach((e) => {
   router.get(e.contextPath, async (c: Context) => {
     let response = await e.middleware(c.request);
     const etag: string = new Sha1().update(response.toString()).toString();

@@ -1,7 +1,9 @@
-import { resolve as gitResolve} from "./service/configuration-service-git.ts";
-import { getConfigurationItems as urlResolve} from "./service/configuration-service-url.ts";
-import { getConfigurationItems as mysqlResolve, getMysqlConnection} from "./service/configuration-service-mysql.ts";
+import { resolve as gitResolve } from "./service/configuration-service-git.ts";
+import { getConfigurationItems as urlResolve } from "./service/configuration-service-url.ts";
+import { getConfigurationItems as mysqlResolve, getMysqlClient, GetMysqlClientFunction, ConnectionSettings } from "./service/configuration-service-mysql.ts";
 import { handleConfigurationItemRequest } from "./middleware/resolve-item-middleware.ts";
+import { ConfigurationItem } from "./service/configuration-service.ts";
+
 import { Cache } from "./cache.ts";
 
 
@@ -22,13 +24,12 @@ let c = `
 // global singletons for ioc
 const config = JSON.parse(c);
 const cache = new Cache(config.cacheSize ?? 100);
-const eTagCache = new Cache(100);
 
 console.log("Config loaded: %o", config);
 
 // IOC definitions
-function createGetMysqlConnection() {
-    return getMysqlConnection.bind(null, config.mysql);
+function createGetMysqlClient(): GetMysqlClientFunction {
+    return getMysqlClient.bind(null, <ConnectionSettings>config.mysql);
 }
 
 export function createConfigurationService() {
@@ -40,8 +41,8 @@ export function createConfigurationService() {
             return urlResolve.bind(null, config.url, cache);
             break;
         case "mysql":
-            return mysqlResolve.bind(null, createGetMysqlConnection());
-            return 
+            return mysqlResolve.bind(null, createGetMysqlClient());
+            return
         default:
             throw new Error("error");
             break;
