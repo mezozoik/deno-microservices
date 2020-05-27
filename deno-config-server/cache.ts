@@ -1,33 +1,34 @@
 import { Sha1 } from "https://deno.land/std/hash/sha1.ts";
+import { log } from "./deps.ts";
 
 export class Cache {
 
     private valueMap = new Map();
-    private usingMap = new Map<any, number>();
+    private usingMap = new Map<string, number>();
 
-    constructor(private size : number = 100) { }
+    constructor(private size: number = 100) { }
 
-    public async match (key : any) : Promise<any> {
-        let stringKey = new Sha1().update(key.toString()).toString();
+    async match(key: string): Promise<unknown> {
+        let stringKey = new Sha1().update(key).toString();
 
-        console.log("checking cache for key: %o", stringKey);
+        log.debug(`checking cache for key: ${stringKey}`);
         if (this.valueMap.has(stringKey)) {
             const value = this.valueMap.get(stringKey);
             this.usingMap.set(stringKey, (this.usingMap.get(key) ?? 0) + 1);
-            console.log("cache hit for key: %o, with value: %o", stringKey, value)
+            log.debug(`cache hit for key: ${stringKey}, with value: ${value}`);
             return value;
         }
         return undefined;
     }
 
-    public put (key : any, value : any) {
+    put(key: string, value: unknown) {
 
-        const stringKey = new Sha1().update(key.toString()).toString();
+        const stringKey = new Sha1().update(key).toString();
 
         // todo: shrink in batch
         if (this.valueMap.size >= this.size) {
-            let minValue : number;
-            let minKey : any;
+            let minValue: number;
+            let minKey: any;
             const lu = this.usingMap.forEach((value, key) => {
                 if (minValue === undefined) {
                     minValue = value;
@@ -36,7 +37,7 @@ export class Cache {
                 if (minValue > value) {
                     minValue = value;
                     minKey = key;
-                } 
+                }
             });
             this.valueMap.delete(minKey);
         }

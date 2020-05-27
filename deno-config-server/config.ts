@@ -1,10 +1,24 @@
-import { resolve as gitResolve } from "./service/configuration-service-git.ts";
-import { getConfigurationItems as urlResolve } from "./service/configuration-service-url.ts";
-import { getConfigurationItems as mysqlResolve, getMysqlClient, GetMysqlClientFunction, ConnectionSettings } from "./service/configuration-service-mysql.ts";
-import { handleConfigurationItemRequest } from "./middleware/resolve-item-middleware.ts";
-import { ConfigurationItem } from "./service/configuration-service.ts";
-
+import { log } from "./deps.ts";
 import { Cache } from "./cache.ts";
+
+// logger
+await log.setup({
+    handlers: {
+        console: new log.handlers.ConsoleHandler("DEBUG", {
+            formatter: (LogRecord) => {
+                return `${LogRecord.datetime.toISOString()} [${LogRecord.levelName}]: ${LogRecord.msg}`;
+            }
+        })
+    },
+
+    loggers: {
+        // configure default logger available via short-hand methods above
+        default: {
+            level: "DEBUG",
+            handlers: ["console"]
+        }
+    }
+});
 
 
 let c = `
@@ -21,36 +35,8 @@ let c = `
             }
 `;
 
-// global singletons for ioc
-const config = JSON.parse(c);
-const cache = new Cache(config.cacheSize ?? 100);
+// global singletons
+export const config = JSON.parse(c);
+export const cache = new Cache(config.cacheSize ?? 100);
 
-console.log("Config loaded: %o", config);
-
-// IOC definitions
-function createGetMysqlClient(): GetMysqlClientFunction {
-    return getMysqlClient.bind(null, <ConnectionSettings>config.mysql);
-}
-
-export function createConfigurationService() {
-    switch (config.store) {
-        case "git":
-            return gitResolve;
-            break;
-        case "url":
-            return urlResolve.bind(null, config.url, cache);
-            break;
-        case "mysql":
-            return mysqlResolve.bind(null, createGetMysqlClient());
-            return
-        default:
-            throw new Error("error");
-            break;
-    }
-}
-
-export function createConfigurationItemMiddleware() {
-    return handleConfigurationItemRequest.bind(null, createConfigurationService());
-}
-
-
+log.debug(`Config loaded: ${config}`);

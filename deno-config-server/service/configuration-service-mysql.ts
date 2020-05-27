@@ -1,5 +1,6 @@
 import { ConfigurationItem } from "./configuration-service.ts";
 import { Client as MySqlClient } from "https://deno.land/x/mysql/mod.ts";
+import { log } from "./../deps.ts";
 
 export type GetMysqlClientFunction = (connection?: object) => MySqlClient | object;
 export interface ConnectionSettings {
@@ -10,11 +11,11 @@ export interface ConnectionSettings {
 };
 
 export async function getConfigurationItems(getMysqlConnectionFunction: GetMysqlClientFunction, names: string[]): Promise<ConfigurationItem[]> {
-    console.log("looking for configuration items: %o", names);
+    log.debug(`looking for configuration items: ${names}`);
     const client = await <MySqlClient>getMysqlConnectionFunction();
     const response = await client.query("select * from config_items where name IN (?)", [names]);
 
-    console.log("found: %o", response);
+    log.debug(`found: ${response}`);
     await client.close();
     return response;
 

@@ -1,11 +1,13 @@
 import { Application, Router, Context } from "./deps.ts";
-import * as ioc from "./config.ts";
+import "./config.ts";
+import * as ioc from "./ioc-config.ts";
 import { getPort } from "./utils.ts";
 import { Sha1 } from "https://deno.land/std/hash/sha1.ts";
 import { Status } from "https://deno.land/std/http/http_status.ts";
-
+import { log } from "./deps.ts";
 
 const app = new Application();
+
 
 const router = new Router();
 const routerMiddlewareArray = [
@@ -22,7 +24,7 @@ routerMiddlewareArray.forEach((e) => {
     let ifNoneMatch = c.request.headers.get("If-None-Match");
     c.response.headers.set("ETag", etag);
     if (ifNoneMatch !== null && ifNoneMatch === etag) {
-      console.log("If-None-Match header detected - check ETag");
+      log.debug("If-None-Match header detected - check ETag");
       c.response.status = Status.NotModified;
     } else {
       c.response.body = response;
@@ -33,5 +35,5 @@ routerMiddlewareArray.forEach((e) => {
 app.use(router.routes()).use(router.allowedMethods());
 
 let port = getPort(Deno.args);
-console.log("Deno config server running on port: %s", port);
+log.debug(`Deno config server running on port: ${port}`);
 await app.listen({ port: port });

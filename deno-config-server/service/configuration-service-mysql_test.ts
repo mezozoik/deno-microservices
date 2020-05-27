@@ -1,6 +1,6 @@
 import { assertEquals } from "./../test-deps.ts";
 import { getConfigurationItems } from "./configuration-service-mysql.ts";
-import { Client } from "https://deno.land/x/mysql/mod.ts";
+import "./../config.ts";
 
 
 Deno.test("find in db", async () => {

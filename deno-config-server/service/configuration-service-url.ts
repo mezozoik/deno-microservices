@@ -1,13 +1,14 @@
 import { ConfigurationItem } from "./configuration-service.ts";
 import { Cache } from "./../cache.ts"
+import { log } from "./../deps.ts";
 
 export async function getConfigurationItems(url: string, cache: Cache, names: string[]): Promise<ConfigurationItem[]> {
-  console.log("Looking for configuration item: %s", names);
-  console.log("Fetching configuration file from URL: %s", url);
+  log.debug(`Looking for configuration item: ${names}`);
+  log.debug(`Fetching configuration file from URL: ${url}`);
 
-  const cached = await cache.match([url, names]);
+  const cached = await cache.match([url, names].toString());
   if (cached !== undefined) {
-    return cached;
+    return cached as ConfigurationItem[];
   }
 
   if (url.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g) === null) {
@@ -18,14 +19,14 @@ export async function getConfigurationItems(url: string, cache: Cache, names: st
   try {
     const content = await fetch(url);
     items = await content.json();
-    console.log(items);
+    log.debug(`${JSON.stringify(items)})`);
   } catch (e) {
     throw e;
   }
 
   const found = items?.filter(stored => names.find(e => e === stored.name));
-  console.log("found: %o", found)
-  cache.put([url, names], found);
+  log.debug(`found: ${JSON.stringify(found)}`);
+  cache.put([url, names].toString(), found);
   return found ?? [];
 }
 

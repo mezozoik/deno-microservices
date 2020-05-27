@@ -1,5 +1,7 @@
 import { assertEquals } from "./test-deps.ts";
 import { getPort } from "./utils.ts"
+import "./config.ts";
+
 
 Deno.test("test getPort", () => {
   assertEquals(getPort([]), 8080);
