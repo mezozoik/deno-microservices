@@ -11,11 +11,11 @@ export class Cache {
     async match(key: string): Promise<unknown> {
         let stringKey = new Sha1().update(key).toString();
 
-        log.debug(`checking cache for key: ${stringKey}`);
+        log.debug("checking cache for key: ?", stringKey);
         if (this.valueMap.has(stringKey)) {
             const value = this.valueMap.get(stringKey);
             this.usingMap.set(stringKey, (this.usingMap.get(key) ?? 0) + 1);
-            log.debug(`cache hit for key: ${stringKey}, with value: ${value}`);
+            log.debug("cache hit for key: ?, with value: ?", stringKey, value);
             return value;
         }
         return undefined;

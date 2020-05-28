@@ -35,5 +35,5 @@ routerMiddlewareArray.forEach((e) => {
 app.use(router.routes()).use(router.allowedMethods());
 
 let port = getPort(Deno.args);
-log.debug(`Deno config server running on port: ${port}`);
+log.debug("Deno config server running on port: ?", port);
 await app.listen({ port: port });

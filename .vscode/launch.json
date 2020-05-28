@@ -1,33 +1,47 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-
-      {
-        "name": "deno-config-server-main",
-        "type": "node",
-        "request": "launch",
-        "cwd": "${workspaceFolder}",
-        "runtimeExecutable": "deno",
-        "runtimeArgs": ["run", "--inspect-brk", "-A", "deno-config-server/main-controller.ts"],
-        "port": 9229
-      },
-      {
-        "name": "deno-config-server test url",
-        "type": "node",
-        "request": "launch",
-        "cwd": "${workspaceFolder}",
-        "runtimeExecutable": "deno",
-        "runtimeArgs": ["test", "--inspect-brk", "-A", "deno-config-server/service/configuration-service-url_test.ts"],
-        "port": 9229
-      },
-      {
-        "name": "test",
-        "type": "node",
-        "request": "launch",
-        "cwd": "${workspaceFolder}",
-        "runtimeExecutable": "deno",
-        "runtimeArgs": ["test", "--inspect-brk", "-A", "deno-config-server/cache_test.ts"],
-        "port": 9229
-      },
-    ]
-  }
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "deno-config-server-main",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "runtimeExecutable": "deno",
+      "runtimeArgs": [
+        "run",
+        "--inspect-brk",
+        "-A",
+        "deno-config-server/main-controller.ts"
+      ],
+      "port": 9229
+    },
+    {
+      "name": "deno-config-server test url",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "runtimeExecutable": "deno",
+      "runtimeArgs": [
+        "test",
+        "--inspect-brk",
+        "-A",
+        "deno-config-server/service/configuration-service-url_test.ts"
+      ],
+      "port": 9229
+    },
+    {
+      "name": "test",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "runtimeExecutable": "deno",
+      "runtimeArgs": [
+        "test",
+        "--inspect-brk",
+        "-A",
+        "deno-config-server/test.ts"
+      ],
+      "port": 9229
+    }
+  ]
+}

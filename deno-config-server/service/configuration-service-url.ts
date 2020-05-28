@@ -3,8 +3,8 @@ import { Cache } from "./../cache.ts"
 import { log } from "./../deps.ts";
 
 export async function getConfigurationItems(url: string, cache: Cache, names: string[]): Promise<ConfigurationItem[]> {
-  log.debug(`Looking for configuration item: ${names}`);
-  log.debug(`Fetching configuration file from URL: ${url}`);
+  log.debug("Looking for configuration item: ?", names);
+  log.debug("Fetching configuration file from URL: ?", url);
 
   const cached = await cache.match([url, names].toString());
   if (cached !== undefined) {
@@ -19,13 +19,13 @@ export async function getConfigurationItems(url: string, cache: Cache, names: st
   try {
     const content = await fetch(url);
     items = await content.json();
-    log.debug(`${JSON.stringify(items)})`);
+    log.debug("all loaded items: ?", items);
   } catch (e) {
     throw e;
   }
 
   const found = items?.filter(stored => names.find(e => e === stored.name));
-  log.debug(`found: ${JSON.stringify(found)}`);
+  log.debug("found: ?", found);
   cache.put([url, names].toString(), found);
   return found ?? [];
 }

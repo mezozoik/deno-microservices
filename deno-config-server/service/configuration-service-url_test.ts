@@ -11,6 +11,7 @@ Deno.test("google.com is not valid json/deno-configuration-file", async () => {
     try {
         await getConfigurationItems("http://www.google.com", cache, ["test"]);
     } catch (e) {
+        log.debug("next error is intended");
         log.error(e);
     }
 });
@@ -19,6 +20,7 @@ Deno.test("load configuration file - invalid url", async () => {
     try {
         await getConfigurationItems("invalid_url", cache, ["test"]);
     } catch (e) {
+        log.debug("next error is intended");
         log.error(e);
     }
 });

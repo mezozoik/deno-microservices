@@ -11,11 +11,11 @@ export interface ConnectionSettings {
 };
 
 export async function getConfigurationItems(getMysqlConnectionFunction: GetMysqlClientFunction, names: string[]): Promise<ConfigurationItem[]> {
-    log.debug(`looking for configuration items: ${names}`);
+    log.debug("looking for configuration items: ?", names);
     const client = await <MySqlClient>getMysqlConnectionFunction();
     const response = await client.query("select * from config_items where name IN (?)", [names]);
 
-    log.debug(`found: ${response}`);
+    log.debug("found: ?", response);
     await client.close();
     return response;
 

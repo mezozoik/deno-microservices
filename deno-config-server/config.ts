@@ -1,25 +1,6 @@
-import { log } from "./deps.ts";
+import "./../global-config.ts";
 import { Cache } from "./cache.ts";
-
-// logger
-await log.setup({
-    handlers: {
-        console: new log.handlers.ConsoleHandler("DEBUG", {
-            formatter: (LogRecord) => {
-                return `${LogRecord.datetime.toISOString()} [${LogRecord.levelName}]: ${LogRecord.msg}`;
-            }
-        })
-    },
-
-    loggers: {
-        // configure default logger available via short-hand methods above
-        default: {
-            level: "DEBUG",
-            handlers: ["console"]
-        }
-    }
-});
-
+import { log } from "./deps.ts";
 
 let c = `
             {
@@ -39,4 +20,4 @@ let c = `
 export const config = JSON.parse(c);
 export const cache = new Cache(config.cacheSize ?? 100);
 
-log.debug(`Config loaded: ${config}`);
+log.debug("Config loaded: ?", config);
